@@ -1,0 +1,16 @@
+﻿@model List<BankAccountViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Bank accounts</h2>
+
+@foreach (var acc in Model)
+{
+
+    <div class="row col-md-offset-0 well ">
+        <label class="col-md-6">Bank account number: @acc.AccountNumber</label>
+        <label class="col-md-6">Available amount: @acc.Balance $</label>
+    </div>
+}
+
