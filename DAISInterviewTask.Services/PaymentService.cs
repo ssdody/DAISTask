@@ -3,6 +3,7 @@ using DAISInterviewTask.Data.Models;
 using DAISInterviewTask.Services.Contracts;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DAISInterviewTask.Services
@@ -64,6 +65,13 @@ namespace DAISInterviewTask.Services
             this.context.SaveChanges();
 
             return waitingPayment;
+        }
+
+        public List<Payment> GetUserPaymentsById(string userId)
+        {
+            var list = this.context.Payments.Where(x => x.UserId == userId && x.IsDeleted == false).ToList();
+
+            return list;
         }
 
     }

@@ -63,7 +63,7 @@ namespace DAISInterviewTask.Controllers
                 }
 
                 var fromBankAcc = this.bankAccountService.GetBankAccountById(model.FromBankAccountId);
-                
+
                 if (model.Amount > fromBankAcc.Balance)
                 {
                     ViewData["Error"] = "Invalid payment amount! Payment amount is bigger than bank account balance!";
@@ -108,7 +108,7 @@ namespace DAISInterviewTask.Controllers
         {
             var userId = this.userManager.GetUserId(HttpContext.User);
 
-            var list = this.context.Payments.Where(x => x.UserId == userId && x.IsDeleted == false).Select(p => new ListPaymentViewModel()
+            var list = this.paymentService.GetUserPaymentsById(userId).Select(p => new ListPaymentViewModel()
             {
                 Amount = p.Amount,
                 FromBankAccountId = p.FromBankAccountId,
@@ -116,8 +116,7 @@ namespace DAISInterviewTask.Controllers
                 ToBankAccount = p.ToBankAccountNumber,
                 Status = p.Status,
                 CreatedOn = p.CreatedOn
-            }).ToList();
-
+            }).OrderBy(x=>x.CreatedOn).ToList();
             return View(list);
         }
 
