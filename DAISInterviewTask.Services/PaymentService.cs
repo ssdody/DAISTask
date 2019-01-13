@@ -34,10 +34,6 @@ namespace DAISInterviewTask.Services
                 CreatedOn = DateTime.Now
             };
 
-            var fromBankAccount = this.context.BankAccounts.FirstOrDefault(x => x.BankAccountId == fromBankAccountId);
-            fromBankAccount.Balance -= amount;
-
-            this.context.BankAccounts.Update(fromBankAccount);
             this.context.Payments.Add(payment);
             this.context.SaveChanges();
 
@@ -50,13 +46,16 @@ namespace DAISInterviewTask.Services
 
             if (waitingPayment != null)
             {
-                if (isSuccessfull)
+                var fromBankAccount = this.context.BankAccounts.FirstOrDefault(x => x.BankAccountId == waitingPayment.FromBankAccountId);
+                if (isSuccessfull && fromBankAccount.Balance >= waitingPayment.Amount)
                 {
                     waitingPayment.Status = "Successfull";
+                    var amount = waitingPayment.Amount;
+
+                    fromBankAccount.Balance -= amount;
                 }
                 else
                 {
-                    //reverse payment (return money to bank account)
                     waitingPayment.Status = "Rejected";
                 }
             }

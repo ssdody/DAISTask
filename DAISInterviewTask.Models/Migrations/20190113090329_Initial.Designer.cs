@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAISInterviewTask.Data.Migrations
 {
     [DbContext(typeof(DAISInterviewTaskDbContext))]
-    [Migration("20190112175802_CreatedOn_AddedToPayment")]
-    partial class CreatedOn_AddedToPayment
+    [Migration("20190113090329_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,6 +28,7 @@ namespace DAISInterviewTask.Data.Migrations
 
                     b.Property<string>("AccountNumber")
                         .IsRequired()
+                        .HasColumnType("char(22)")
                         .HasMaxLength(22);
 
                     b.Property<decimal>("Balance")
@@ -68,7 +69,9 @@ namespace DAISInterviewTask.Data.Migrations
                         .IsRequired();
 
                     b.Property<string>("ToBankAccountNumber")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("char(22)")
+                        .HasMaxLength(22);
 
                     b.Property<string>("UserId")
                         .IsRequired();

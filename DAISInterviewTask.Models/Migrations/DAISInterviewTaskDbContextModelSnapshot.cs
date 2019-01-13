@@ -26,6 +26,7 @@ namespace DAISInterviewTask.Data.Migrations
 
                     b.Property<string>("AccountNumber")
                         .IsRequired()
+                        .HasColumnType("char(22)")
                         .HasMaxLength(22);
 
                     b.Property<decimal>("Balance")
@@ -66,7 +67,9 @@ namespace DAISInterviewTask.Data.Migrations
                         .IsRequired();
 
                     b.Property<string>("ToBankAccountNumber")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasColumnType("char(22)")
+                        .HasMaxLength(22);
 
                     b.Property<string>("UserId")
                         .IsRequired();

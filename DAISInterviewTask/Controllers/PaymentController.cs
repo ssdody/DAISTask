@@ -52,16 +52,33 @@ namespace DAISInterviewTask.Controllers
         [HttpPost]
         public IActionResult Payment(PaymentViewModel model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && model.Amount > 0)
             {
-                var fromBankAccBalance = this.bankAccountService.GetBankAccountBalanceById(model.FromBankAccountId);
-                var fromBankAccountNumber = this.bankAccountService.GetBankAccountNumberById(model.FromBankAccountId);
+                if (model.FromBankAccountId == null)
+                {
+                    ViewData["Error"] = "Select account FROM which payment may be made!";
+                    var paymentVM = InitializePaymentViewModel();
 
-                if (model.Amount > fromBankAccBalance)
+                    return View("Index", paymentVM);
+                }
+
+                var fromBankAcc = this.bankAccountService.GetBankAccountById(model.FromBankAccountId);
+                
+                if (model.Amount > fromBankAcc.Balance)
                 {
                     ViewData["Error"] = "Invalid payment amount! Payment amount is bigger than bank account balance!";
-                    var paymentVM = InitializePaymentViewModel();
-                    return View("Index", paymentVM);
+                }
+                else if (model.Reason == null)
+                {
+                    ViewData["Error"] = "Field 'Reason' cannot be empty! Please enter valid reason for payment.";
+                }
+                else if (model.ToBankAccount == null)
+                {
+                    ViewData["Error"] = "Еnter account TO which payment may be made.";
+                }
+                else if (fromBankAcc.AccountNumber == model.ToBankAccount)
+                {
+                    ViewData["Error"] = "Cannot make payment to the same bank account!";
                 }
                 else
                 {

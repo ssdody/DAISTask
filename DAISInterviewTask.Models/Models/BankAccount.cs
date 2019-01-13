@@ -17,6 +17,7 @@ namespace DAISInterviewTask.Data.Models
 
         [Required]
         [RegularExpression("^[a-zA-Z0-9]+$")]
+        [Column(TypeName = "char(22)")]
         [StringLength(22, MinimumLength = 22)]
         public string AccountNumber { get; set; }
 
@@ -26,9 +27,7 @@ namespace DAISInterviewTask.Data.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal Balance { get; set; }
 
-        //public ICollection<UsersBankAccounts> UsersBankAccounts { get; set; }
-
         public bool IsDeleted { get; set; }
-        
+
     }
 }

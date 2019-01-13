@@ -15,6 +15,8 @@ namespace DAISInterviewTask.Data.Models
         public User User { get; set; }
 
         [Required]
+        [Column(TypeName = "char(22)")]
+        [StringLength(22, MinimumLength = 22)]
         public string ToBankAccountNumber { get; set; }
 
         [Required]
@@ -30,6 +32,7 @@ namespace DAISInterviewTask.Data.Models
 
         [Required]
         [StringLength(32, MinimumLength = 10)]
+        [MaxLength(32)]
         public string Reason { get; set; }
 
         [Required]

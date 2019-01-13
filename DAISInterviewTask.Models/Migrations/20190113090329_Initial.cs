@@ -162,7 +162,7 @@ namespace DAISInterviewTask.Data.Migrations
                 {
                     BankAccountId = table.Column<string>(nullable: false),
                     UserId = table.Column<string>(nullable: false),
-                    AccountNumber = table.Column<string>(maxLength: 22, nullable: false),
+                    AccountNumber = table.Column<string>(type: "char(22)", maxLength: 22, nullable: false),
                     Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
@@ -183,11 +183,12 @@ namespace DAISInterviewTask.Data.Migrations
                 {
                     PaymentId = table.Column<string>(nullable: false),
                     UserId = table.Column<string>(nullable: false),
-                    ToBankAccountNumber = table.Column<string>(nullable: false),
+                    ToBankAccountNumber = table.Column<string>(type: "char(22)", maxLength: 22, nullable: false),
                     FromBankAccountId = table.Column<string>(nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Reason = table.Column<string>(maxLength: 32, nullable: false),
                     Status = table.Column<string>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
